@@ -12,13 +12,13 @@ export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
     if (!email) return
     
     setIsLoading(true)
     
-    // Let the form submit naturally to ConvertKit
+    // Don't prevent default - let the form submit to ConvertKit
     // The form will handle the submission to ConvertKit's servers
+    // We'll show success state after a brief delay
     setTimeout(() => {
       setIsSubmitted(true)
       setIsLoading(false)
