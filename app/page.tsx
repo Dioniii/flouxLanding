@@ -17,31 +17,12 @@ export default function LandingPage() {
     
     setIsLoading(true)
     
-    try {
-      // Use ConvertKit's form submission
-      const form = document.createElement('form')
-      form.method = 'POST'
-      form.action = 'https://app.convertkit.com/forms/6513611d07/subscriptions'
-      form.style.display = 'none'
-      
-      const emailInput = document.createElement('input')
-      emailInput.type = 'email'
-      emailInput.name = 'email_address'
-      emailInput.value = email
-      
-      form.appendChild(emailInput)
-      document.body.appendChild(form)
-      form.submit()
-      document.body.removeChild(form)
-      
+    // Let the form submit naturally to ConvertKit
+    // The form will handle the submission to ConvertKit's servers
+    setTimeout(() => {
       setIsSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting to ConvertKit:', error)
-      // Fallback to success state for better UX
-      setIsSubmitted(true)
-    } finally {
       setIsLoading(false)
-    }
+    }, 1000)
   }
   return (
     <div className="min-h-screen bg-white">
@@ -350,10 +331,16 @@ export default function LandingPage() {
           </p>
           
           {!isSubmitted ? (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+            <form 
+              action="https://app.convertkit.com/forms/6513611d07/subscriptions" 
+              method="post" 
+              className="max-w-md mx-auto"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col sm:flex-row gap-4">
                 <Input
                   type="email"
+                  name="email_address"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
