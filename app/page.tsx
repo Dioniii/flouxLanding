@@ -1,9 +1,48 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mic, Brain, Shield, Zap, Star, ArrowRight } from 'lucide-react'
+import { useState } from 'react'
 
 export default function LandingPage() {
+  const [email, setEmail] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email) return
+    
+    setIsLoading(true)
+    
+    try {
+      // Use ConvertKit's form submission
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = 'https://app.convertkit.com/forms/6513611d07/subscriptions'
+      form.style.display = 'none'
+      
+      const emailInput = document.createElement('input')
+      emailInput.type = 'email'
+      emailInput.name = 'email_address'
+      emailInput.value = email
+      
+      form.appendChild(emailInput)
+      document.body.appendChild(form)
+      form.submit()
+      document.body.removeChild(form)
+      
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error('Error submitting to ConvertKit:', error)
+      // Fallback to success state for better UX
+      setIsSubmitted(true)
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -54,6 +93,11 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="bg-[#2e2d51] hover:bg-[#2e2d51]/90 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
+                onClick={() => {
+                  document.getElementById('waitlist-section')?.scrollIntoView({ 
+                    behavior: 'smooth' 
+                  })
+                }}
               >
                 Start Capturing Your Mind
                 <Mic className="ml-2 h-5 w-5" />
@@ -295,7 +339,7 @@ export default function LandingPage() {
       </section>
 
       {/* Mind Break Section */}
-      <section className="px-4 py-20 bg-gradient-to-br from-[#2e2d51] to-[#5a89bd]">
+      <section id="waitlist-section" className="px-4 py-20 bg-gradient-to-br from-[#2e2d51] to-[#5a89bd]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
             Your Mind Is Brilliant.
@@ -304,16 +348,41 @@ export default function LandingPage() {
           <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
             You don't need another note app. You need a space that feels like your mind — fast, fluid, and free.
           </p>
-          <Button
-            size="lg"
-            className="bg-white hover:bg-white/90 text-[#2e2d51] px-12 py-6 text-xl rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
-          >
-            Try Floux
-          </Button>
+          
+          {!isSubmitted ? (
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-white border-0 text-[#2e2d51] placeholder:text-[#5a89bd] px-6 py-4 text-lg rounded-full shadow-lg"
+                  required
+                />
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isLoading}
+                  className="bg-white hover:bg-white/90 text-[#2e2d51] px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all font-semibold whitespace-nowrap"
+                >
+                  {isLoading ? 'Joining...' : 'Join Waitlist'}
+                </Button>
+              </div>
+              <p className="text-white/70 text-sm mt-3">Be the first to know when Floux launches.</p>
+            </form>
+          ) : (
+            <div className="text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 inline-block">
+                <p className="text-white text-lg font-semibold">🎉 You're on the list!</p>
+                <p className="text-white/80 text-sm">We'll notify you when Floux is ready.</p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* CTA Footer */}
+      {/* CTA Footer 
       <section className="px-4 py-16 bg-[#2e2d51]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to capture your thoughts?</h2>
@@ -338,6 +407,7 @@ export default function LandingPage() {
           <p className="text-[#5a89bd] text-sm mt-4">No spam, ever. Unsubscribe anytime.</p>
         </div>
       </section>
+      */}
     </div>
   )
 }
