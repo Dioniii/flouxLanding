@@ -1,29 +1,11 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mic, Brain, Shield, Zap, Star, ArrowRight } from 'lucide-react'
-import { useState } from 'react'
+import { Mic, Brain, Shield, Zap, Star } from 'lucide-react'
+ 
 
 export default function LandingPage() {
-  const [email, setEmail] = useState('')
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    if (!email) return
-    
-    setIsLoading(true)
-    
-    // Don't prevent default - let the form submit to ConvertKit
-    // The form will handle the submission to ConvertKit's servers
-    // We'll show success state after a brief delay
-    setTimeout(() => {
-      setIsSubmitted(true)
-      setIsLoading(false)
-    }, 1000)
-  }
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -330,42 +312,27 @@ export default function LandingPage() {
             You don't need another note app. You need a space that feels like your mind — fast, fluid, and free.
           </p>
           
-          {!isSubmitted ? (
-            <form 
-              action="https://app.convertkit.com/forms/6513611d07/subscriptions" 
-              method="post" 
-              className="max-w-md mx-auto"
-              onSubmit={handleSubmit}
-            >
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Input
-                  type="email"
-                  name="email_address"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white border-0 text-[#2e2d51] placeholder:text-[#5a89bd] px-6 py-4 text-lg rounded-full shadow-lg"
-                  required
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isLoading}
-                  className="bg-white hover:bg-white/90 text-[#2e2d51] px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all font-semibold whitespace-nowrap"
-                >
-                  {isLoading ? 'Joining...' : 'Join Waitlist'}
-                </Button>
-              </div>
-              <p className="text-white/70 text-sm mt-3">Be the first to know when Floux launches.</p>
-            </form>
-          ) : (
-            <div className="text-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 inline-block">
-                <p className="text-white text-lg font-semibold">🎉 You're on the list!</p>
-                <p className="text-white/80 text-sm">We'll notify you when Floux is ready.</p>
-              </div>
+          {/* Fixed centering wrapper */}
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-md">
+              <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+              <iframe
+                src="https://subscribe-forms.beehiiv.com/2987bfe4-de62-4108-acaa-f2bc005b6a80"
+                className="beehiiv-embed w-full mx-auto"
+                data-test-id="beehiiv-embed"
+                frameBorder="0"
+                scrolling="no"
+                style={{
+                  height: '147px',
+                  margin: '0 auto',
+                  borderRadius: '0px 0px 0px 0px',
+                  backgroundColor: 'transparent',
+                  boxShadow: '0 0 #0000',
+                  display: 'block'
+                }}
+              ></iframe>
             </div>
-          )}
+          </div>
         </div>
       </section>
 
