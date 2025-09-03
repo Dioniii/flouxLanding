@@ -43,31 +43,51 @@ export function AuthRedirectHandler({ children }: AuthRedirectHandlerProps) {
         setHasAuthParams(true)
         setIsProcessing(true)
         
-        try {
-          // Check if Supabase is available
-          if (!supabase) {
-            console.error('❌ Supabase client not available')
+                  try {
+            // Check if Supabase is available
+            if (!supabase) {
+              console.error('❌ Supabase client not available')
+              setAuthResult('error')
+              return
+            }
+            
+            // Check if user is already authenticated
+            const { data: { user } } = await supabase.auth.getUser()
+            console.log('🔍 Current user state:', user)
+            
+            console.log('🔧 Processing auth redirect with Supabase...')
+            console.log('Full URL being processed:', window.location.href)
+            
+            // Process the auth redirect
+            const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href)
+            
+            console.log('🔍 Supabase response - data:', data)
+            console.log('🔍 Supabase response - error:', error)
+            
+            if (error) {
+              console.error('❌ Auth error:', error)
+              console.error('Error message:', error.message)
+              console.error('Error details:', error)
+              
+              // Check if this is a "user already confirmed" type of error
+              if (error.message?.includes('already confirmed') || error.message?.includes('already verified')) {
+                console.log('✅ User already confirmed - treating as success')
+                setAuthResult('success')
+              } else {
+                setAuthResult('error')
+              }
+            } else {
+              console.log('✅ Auth success:', data)
+              console.log('User ID:', data.user?.id)
+              console.log('User email:', data.user?.email)
+              setAuthResult('success')
+            }
+          } catch (err) {
+            console.error('❌ Unexpected error:', err)
             setAuthResult('error')
-            return
+          } finally {
+            setIsProcessing(false)
           }
-          
-          console.log('🔧 Processing auth redirect with Supabase...')
-          // Process the auth redirect
-          const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href)
-          
-          if (error) {
-            console.error('❌ Auth error:', error)
-            setAuthResult('error')
-          } else {
-            console.log('✅ Auth success:', data)
-            setAuthResult('success')
-          }
-        } catch (err) {
-          console.error('❌ Unexpected error:', err)
-          setAuthResult('error')
-        } finally {
-          setIsProcessing(false)
-        }
       } else {
         console.log('❌ No auth parameters found - showing normal landing page')
       }
