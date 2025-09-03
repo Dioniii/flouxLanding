@@ -16,40 +16,60 @@ export function AuthRedirectHandler({ children }: AuthRedirectHandlerProps) {
 
   useEffect(() => {
     const checkForAuthParams = async () => {
-      // Check if URL contains Supabase auth parameters
-      const urlParams = new URLSearchParams(window.location.search)
-      const hasAccessToken = urlParams.has('access_token')
-      const hasType = urlParams.has('type')
-      const hasCode = urlParams.has('code')
+      // Debug: Log the current URL, search parameters, and hash
+      console.log('🔍 Checking for auth parameters...')
+      console.log('Current URL:', window.location.href)
+      console.log('Search params:', window.location.search)
+      console.log('Hash:', window.location.hash)
+      
+      // Check both query parameters and hash fragments for Supabase auth parameters
+      const searchParams = new URLSearchParams(window.location.search)
+      const hashParams = new URLSearchParams(window.location.hash.replace('#', ''))
+      
+      // Check for auth parameters in both locations
+      const hasAccessToken = searchParams.has('access_token') || hashParams.has('access_token')
+      const hasType = searchParams.has('type') || hashParams.has('type')
+      const hasCode = searchParams.has('code') || hashParams.has('code')
+      
+      // Debug: Log what we found
+      console.log('Has access_token:', hasAccessToken)
+      console.log('Has type:', hasType)
+      console.log('Has code:', hasCode)
+      console.log('Search params:', Object.fromEntries(searchParams.entries()))
+      console.log('Hash params:', Object.fromEntries(hashParams.entries()))
       
       if (hasAccessToken || hasType || hasCode) {
+        console.log('✅ Auth parameters detected!')
         setHasAuthParams(true)
         setIsProcessing(true)
         
         try {
           // Check if Supabase is available
           if (!supabase) {
-            console.error('Supabase client not available')
+            console.error('❌ Supabase client not available')
             setAuthResult('error')
             return
           }
           
+          console.log('🔧 Processing auth redirect with Supabase...')
           // Process the auth redirect
           const { data, error } = await supabase.auth.exchangeCodeForSession(window.location.href)
           
           if (error) {
-            console.error('Auth error:', error)
+            console.error('❌ Auth error:', error)
             setAuthResult('error')
           } else {
-            console.log('Auth success:', data)
+            console.log('✅ Auth success:', data)
             setAuthResult('success')
           }
         } catch (err) {
-          console.error('Unexpected error:', err)
+          console.error('❌ Unexpected error:', err)
           setAuthResult('error')
         } finally {
           setIsProcessing(false)
         }
+      } else {
+        console.log('❌ No auth parameters found - showing normal landing page')
       }
     }
 
