@@ -3,11 +3,13 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Mic, Brain, Shield, Zap, Star } from 'lucide-react'
- 
+import Script from 'next/script'
+import { AuthRedirectHandler } from "@/components/auth-redirect-handler"
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <AuthRedirectHandler>
+      <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative px-4 py-20 md:py-32 max-w-7xl mx-auto overflow-hidden">
         {/* Background Elements */}
@@ -315,7 +317,7 @@ export default function LandingPage() {
           {/* Fixed centering wrapper */}
           <div className="w-full flex justify-center">
             <div className="w-full max-w-md">
-              <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+              <Script src="https://subscribe-forms.beehiiv.com/embed.js" strategy="afterInteractive" async />
               <iframe
                 src="https://subscribe-forms.beehiiv.com/2987bfe4-de62-4108-acaa-f2bc005b6a80"
                 className="beehiiv-embed w-full mx-auto"
@@ -362,6 +364,7 @@ export default function LandingPage() {
         </div>
       </section>
       */}
-    </div>
+      </div>
+    </AuthRedirectHandler>
   )
-}
+} 
