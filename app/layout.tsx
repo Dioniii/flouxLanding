@@ -27,7 +27,6 @@ html {
       </head>
       <body>
         {children}
-        <script async data-uid="6513611d07" src="https://floux.kit.com/6513611d07/index.js"></script>
       </body>
     </html>
   )

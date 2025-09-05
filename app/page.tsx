@@ -1,15 +1,11 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { Mic, Brain, Shield, Zap, Star } from 'lucide-react'
-import Script from 'next/script'
-import { AuthRedirectHandler } from "@/components/auth-redirect-handler"
+import { Mic, Brain, Shield, Zap, Star, ArrowRight } from 'lucide-react'
 
 export default function LandingPage() {
   return (
-    <AuthRedirectHandler>
-      <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative px-4 py-20 md:py-32 max-w-7xl mx-auto overflow-hidden">
         {/* Background Elements */}
@@ -58,11 +54,6 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="bg-[#2e2d51] hover:bg-[#2e2d51]/90 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
-                onClick={() => {
-                  document.getElementById('waitlist-section')?.scrollIntoView({ 
-                    behavior: 'smooth' 
-                  })
-                }}
               >
                 Start Capturing Your Mind
                 <Mic className="ml-2 h-5 w-5" />
@@ -174,7 +165,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-xl font-semibold text-[#2e2d51] mb-4">2. Your Voice Becomes Clarity</h3>
               <p className="text-[#5a89bd] leading-relaxed">
-                Floux transforms your voice into clear, organized notes — like magic.
+                Floux transforms your voice into clear, organized notes - like magic.
               </p>
             </div>
 
@@ -212,7 +203,7 @@ export default function LandingPage() {
                 <Zap className="h-12 w-12 text-[#2e2d51] mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-[#2e2d51] mb-3">Capture Moments Before They Disappear</h3>
                 <p className="text-[#5a89bd] text-sm">
-                  Floux is built for speed — so you never lose a spark of inspiration.
+                  Floux is built for speed - so you never lose a spark of inspiration.
                 </p>
               </CardContent>
             </Card>
@@ -303,68 +294,40 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Mind Break Section */}
-      <section id="waitlist-section" className="px-4 py-20 bg-gradient-to-br from-[#2e2d51] to-[#5a89bd]">
+        {/* Mind Break Section */}
+      <section className="px-4 py-20 bg-gradient-to-br from-[#2e2d51] to-[#5a89bd]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
             Your Mind Is Brilliant.
             <span className="block text-[#d4b1cf]">Give It a Break.</span>
           </h2>
           <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
-            You don't need another note app. You need a space that feels like your mind — fast, fluid, and free.
+            You don't need another note app. You need a space that feels like your mind - fast, fluid, and free.
           </p>
           
-          {/* Fixed centering wrapper */}
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-md">
-              <Script src="https://subscribe-forms.beehiiv.com/embed.js" strategy="afterInteractive" async />
-              <iframe
-                src="https://subscribe-forms.beehiiv.com/2987bfe4-de62-4108-acaa-f2bc005b6a80"
-                className="beehiiv-embed w-full mx-auto"
-                data-test-id="beehiiv-embed"
-                frameBorder="0"
-                scrolling="no"
-                style={{
-                  height: '147px',
-                  margin: '0 auto',
-                  borderRadius: '0px 0px 0px 0px',
-                  backgroundColor: 'transparent',
-                  boxShadow: '0 0 #0000',
-                  display: 'block'
-                }}
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Footer 
-      <section className="px-4 py-16 bg-[#2e2d51]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to capture your thoughts?</h2>
-          <p className="text-[#d4b1cf] text-lg mb-8">
-            Join thousands of users who trust floux with their ideas.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-white border-0 text-[#2e2d51] placeholder:text-[#5a89bd]"
+          {/* Beehiiv Embed Form */}
+          <div className="w-full text-center flex justify-center md:pl-20">
+            <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+            <iframe 
+              src="https://subscribe-forms.beehiiv.com/6bc5aaab-2077-4f7e-9301-afd81c489c3e" 
+              className="beehiiv-embed inline-block border-0 rounded-none bg-transparent shadow-none" 
+              data-test-id="beehiiv-embed" 
+              frameBorder="0" 
+              scrolling="no"
+              style={{
+                width: '510px',
+                height: '156px',
+                margin: '0',
+                borderRadius: '0px 0px 0px 0px !important',
+                backgroundColor: 'transparent',
+                boxShadow: '0 0 #0000',
+                maxWidth: '100%'
+              }}
             />
-            <Button
-              size="lg"
-              className="bg-[#d4b1cf] hover:bg-[#d4b1cf]/90 text-[#2e2d51] font-semibold px-8 whitespace-nowrap"
-            >
-              Get Early Access
-            </Button>
           </div>
-
-          <p className="text-[#5a89bd] text-sm mt-4">No spam, ever. Unsubscribe anytime.</p>
         </div>
       </section>
-      */}
-      </div>
-    </AuthRedirectHandler>
+
+    </div>
   )
 } 
