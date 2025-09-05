@@ -77,49 +77,102 @@ export default function LandingPage() {
           {/* Right Column - Visual */}
           <div className="relative">
             {/* Phone Mockup */}
-            <div className="relative mx-auto w-80 h-[600px] bg-[#2e2d51] rounded-[3rem] p-2 shadow-2xl">
-              <div className="w-full h-full bg-white rounded-[2.5rem] overflow-hidden relative">
+            <div className="relative mx-auto w-72 h-[640px] bg-[#2e2d51] rounded-[2.5rem] p-1.5 shadow-2xl">
+              <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden relative">
                 {/* Status Bar */}
-                <div className="bg-[#2e2d51] h-8 flex items-center justify-center">
-                  <div className="w-20 h-1 bg-white/30 rounded-full"></div>
+                <div className="bg-white h-6 flex items-center justify-between px-6 pt-1">
+                  <div className="text-xs font-semibold text-black">9:41</div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-4 h-2 border border-black rounded-sm">
+                      <div className="w-3 h-1.5 bg-black rounded-sm m-0.5"></div>
+                    </div>
+                    <div className="w-4 h-2 border border-black rounded-sm">
+                      <div className="w-3 h-1.5 bg-black rounded-sm m-0.5"></div>
+                    </div>
+                    <div className="w-4 h-2 border border-black rounded-sm">
+                      <div className="w-3 h-1.5 bg-black rounded-sm m-0.5"></div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* App Interface */}
-                <div className="p-6 h-full bg-gradient-to-br from-white to-[#f8f9ff]">
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-8">
-                    <div>
-                      <h3 className="text-[#2e2d51] font-semibold text-lg">Good morning!</h3>
-                      <p className="text-[#5a89bd] text-sm">Ready to capture your thoughts?</p>
-                    </div>
-                    <div className="w-10 h-10 bg-[#d4b1cf]/20 rounded-full flex items-center justify-center">
-                      <Brain className="w-5 h-5 text-[#2e2d51]" />
-                    </div>
+                <div className="h-full bg-white flex flex-col">
+                  {/* Header Section */}
+                  <div className="pt-5 pb-3 px-5">
+                    {/* App Title */}
+                    <h1 className="text-xl font-medium text-[#2e2d51] text-center mb-1.5">floux</h1>
+                    
+                    {/* Divider */}
+                    <div className="w-full h-[1px] bg-[#e0e0e0] my-1.5"></div>
+                    
+                    {/* Welcome Text */}
+                    <h2 className="text-base font-semibold text-[#2e2d51] text-left mb-0.5">Welcome back, User!</h2>
+                    
+                    {/* Subtitle */}
+                    <p className="text-sm font-medium text-[#5a89bd] text-left">Elevate your thoughts</p>
                   </div>
 
-                  {/* Recording Button */}
-                  <div className="text-center mb-8">
-                    <div className="relative inline-block">
-                      <div className="w-24 h-24 bg-gradient-to-br from-[#5a89bd] to-[#d4b1cf] rounded-full flex items-center justify-center shadow-lg">
-                        <Mic className="w-10 h-10 text-white" />
+                  {/* Main Content Area */}
+                  <div className="flex-1 flex flex-col items-center justify-center px-5">
+                    {/* Wave Animation Background */}
+                    <div className="relative w-36 h-36 rounded-full bg-[rgba(90,137,189,0.1)] flex items-center justify-center mb-8">
+                      {/* Audio Visualizer */}
+                      <div className="flex items-end gap-0.5 h-10">
+                        {[...Array(12)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="w-0.5 bg-[#5a89bd] rounded-full"
+                            style={{
+                              height: `${Math.random() * 20 + 10}px`,
+                              animation: `pulse ${Math.random() * 2 + 1}s ease-in-out infinite alternate`
+                            }}
+                          ></div>
+                        ))}
                       </div>
-                      {/* Pulse Animation */}
-                      <div className="absolute inset-0 w-24 h-24 bg-[#5a89bd]/30 rounded-full animate-ping"></div>
                     </div>
-                    <p className="text-[#2e2d51] font-medium mt-4">Tap to record</p>
+
+                    {/* Record Button */}
+                    <div className="relative mb-5">
+                      <div className="w-16 h-16 bg-[#2e2d51] rounded-full flex items-center justify-center shadow-[0_4px_8px_rgba(0,0,0,0.3)] border-2 border-white">
+                        <Mic className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Record Text */}
+                    <p className="text-sm font-semibold text-[#2e2d51] text-center mb-2">Tap to start recording</p>
+                    
+                    {/* Instruction Text */}
+                    <p className="text-xs text-[#666666] text-center leading-tight px-4">Your voice will be automatically transcribed into notes</p>
                   </div>
 
-                  {/* Recent Notes */}
-                  <div className="space-y-3">
-                    <h4 className="text-[#2e2d51] font-medium text-sm">Recent Notes</h4>
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-[#d4b1cf]/20">
-                      <p className="text-[#2e2d51] text-sm font-medium mb-1">Meeting ideas</p>
-                      <p className="text-[#5a89bd] text-xs">2 minutes ago</p>
+                  {/* Navigation Bar */}
+                  <div className="h-16 flex items-center justify-around px-6 border-t border-[#e0e0e0] bg-white mb-8">
+                    {/* Record Tab (Active) */}
+                    <div className="flex flex-col items-center">
+                      <Mic className="w-5 h-5 text-[#2e2d51] mb-1" />
+                      <span className="text-xs text-[#2e2d51] font-medium">Record</span>
                     </div>
-                    <div className="bg-white rounded-xl p-4 shadow-sm border border-[#d4b1cf]/20">
-                      <p className="text-[#2e2d51] text-sm font-medium mb-1">Grocery list</p>
-                      <p className="text-[#5a89bd] text-xs">1 hour ago</p>
+                    
+                    {/* Notes Tab */}
+                    <div className="flex flex-col items-center">
+                      <svg className="w-5 h-5 text-[#666666] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <span className="text-xs text-[#666666]">Notes</span>
                     </div>
+                    
+                    {/* Profile Tab */}
+                    <div className="flex flex-col items-center">
+                      <svg className="w-5 h-5 text-[#666666] mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <span className="text-xs text-[#666666]">Profile</span>
+                    </div>
+                  </div>
+
+                  {/* Home Indicator */}
+                  <div className="h-1 flex justify-center items-center bg-white">
+                    <div className="w-12 h-1 bg-black rounded-full"></div>
                   </div>
                 </div>
               </div>
