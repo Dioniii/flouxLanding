@@ -1,5 +1,3 @@
-"use client"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -56,12 +54,6 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="bg-[#2e2d51] hover:bg-[#2e2d51]/90 text-white px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all"
-                onClick={() => {
-                  document.getElementById('waitlist')?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
-                }}
               >
                 Start Capturing Your Mind
                 <Mic className="ml-2 h-5 w-5" />
