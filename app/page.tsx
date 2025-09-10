@@ -208,7 +208,7 @@ export default function LandingPage() {
 {/* The Enhanced Forgetting Machine */}
 <section className="px-4 py-16 sm:py-24 md:py-32 bg-gray-50 relative overflow-hidden">
  {/* Enhanced Grid Pattern with Movement */}
- <div className="absolute inset-0 opacity-[0.02] bg-gradient-to-br from-transparent via-[#5a89bd]/5 to-transparent animate-drift">
+  <div className="absolute inset-0 opacity-[0.02] bg-gradient-to-br from-transparent via-[#5a89bd]/5 to-transparent">
    <div className="absolute inset-0" style={{
      backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(46,45,81,0.15) 1px, transparent 0), radial-gradient(circle at 12px 12px, rgba(90,137,189,0.1) 1px, transparent 0)',
      backgroundSize: '24px 24px, 48px 48px'
