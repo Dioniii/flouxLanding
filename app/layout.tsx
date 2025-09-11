@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import './globals.css'
@@ -53,6 +54,18 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NB6F42S530"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NB6F42S530');
+          `}
+        </Script>
       </head>
       <body className="font-sans antialiased">
         {children}
